@@ -1,0 +1,13 @@
+.accountList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.accountCard {
+  min-width: 250px !important;
+}
+
+.selected {
+  background-color: lightblue;
+}

@@ -1,0 +1,75 @@
+.toggleContainer {
+  padding-top: 8px;
+  cursor: pointer;
+  @media (max-width: 540px) {
+    position: fixed;
+    top: 0;
+    z-index: 100000;
+    &:not(.hidden) {
+      // left: 280px;
+      display: none;
+    }
+  }
+}
+
+.sidebar {
+  // display: flex;
+  max-height: 100vh;
+  height: 100vh;
+
+  // width: 280;
+
+  width: 280px;
+  opacity: 1;
+  transform: translateX(0);
+  display: flex;
+  // transition: width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  transition: all 0.5s ease;
+  @media (max-width: 540px) {
+    position: fixed;
+    top: 1;
+    z-index: 10000;
+    background-color: white;
+    height: 100vh;
+  }
+
+  &.hidden {
+    // display: none;
+    // width: 0px;
+
+    // width: 0;
+    opacity: 0;
+    // transform: translateX(-280px);
+    // transform: margin 0.25s;
+    margin-left: -280px;
+
+    // display: none;
+  }
+}
+
+.mobileToggle {
+  display: none;
+  @media (max-width: 540px) {
+    position: absolute;
+    display: block;
+    top: 8px;
+    left: 8px;
+  }
+}
+
+.mobileMenuShadow {
+  @media (min-width: 540px) {
+    display: none;
+  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.5;
+  &.hidden {
+    opacity: 0;
+  }
+}

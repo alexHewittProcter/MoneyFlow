@@ -1,0 +1,21 @@
+.spendTypeCardContainer {
+  padding-top: 60px;
+  display: flex;
+  flex: 2;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  //   flex-basis: 30%;
+
+  > div {
+    // flex: 1;
+    width: calc(50% - 20px);
+
+    @media (max-width: 1000px) {
+      width: calc(100%);
+    }
+    @media (min-width: 1800px) {
+      width: calc(33% - 20px);
+    }
+  }
+}

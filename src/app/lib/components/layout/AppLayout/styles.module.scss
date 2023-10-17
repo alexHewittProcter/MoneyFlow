@@ -1,0 +1,23 @@
+.page {
+  flex: 1;
+  margin: 32px;
+  @media (min-width: 540px) {
+    margin-left: 0;
+  }
+  @media (max-width: 540px) {
+    margin-top: 40px;
+  }
+  //   width: calc(100% - 64px);
+}
+
+.pageWrapper {
+  overflow: auto;
+  // overflow-x: auto;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.appLayoutContainer {
+  height: 100vh;
+  max-height: 100vh;
+}

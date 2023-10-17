@@ -1,0 +1,25 @@
+.transactionsList {
+  flex: 1;
+  //   border: 0.5px solid grey;
+  //   box-shadow: 1px;
+  //   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.06);
+  margin: 8px;
+  // flex-grow: 1;
+  //   border-radius: 4px;
+  padding: 8px;
+  ul {
+    padding: 0px;
+    max-height: 350px;
+    overflow: auto;
+    li {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      list-style-type: none;
+      border-bottom: 1px solid lightgrey;
+      div {
+        flex-direction: column;
+      }
+    }
+  }
+}
