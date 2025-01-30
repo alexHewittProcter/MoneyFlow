@@ -18,6 +18,7 @@ import {
   PieChart,
   Cell,
 } from "recharts";
+import sortArrayByDateStringAscending from "lib/app/lib/func/sortDates";
 
 export const SpendTypeCard = ({ spendType }: { spendType: SpendType }) => {
   const selection = useContext(SelectionContext);
@@ -41,7 +42,11 @@ export const SpendTypeCard = ({ spendType }: { spendType: SpendType }) => {
       >
         <ResponsiveContainer>
           <LineChart
-            data={view == "day" ? spendType.days : spendType.months}
+            data={
+              view == "day"
+                ? sortArrayByDateStringAscending(spendType.days!)
+                : sortArrayByDateStringAscending(spendType.months!).reverse()
+            }
             margin={{
               top: 5,
               right: 30,
@@ -76,7 +81,7 @@ export const SpendTypeCard = ({ spendType }: { spendType: SpendType }) => {
         <ResponsiveContainer>
           <PieChart>
             <Pie
-              data={(spendType && spendType.groupedSpend) || []}
+              data={(spendType && spendType.groupedSpend.reverse()) || []}
               dataKey="amount"
               nameKey="name"
               fill="#82ca9d"
@@ -108,6 +113,10 @@ export const SpendTypeCard = ({ spendType }: { spendType: SpendType }) => {
           </PieChart>
         </ResponsiveContainer>
       </div>
+      <TransactionList
+        transactions={spendType.groupedSpend}
+        label="Grouped transactions"
+      />
       <TransactionList transactions={spendType.transactions} />
     </Card>
   );

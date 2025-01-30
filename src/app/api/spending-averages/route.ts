@@ -9,6 +9,7 @@ import {
 } from "lib/app/lib/func/average-spend";
 import { getConnection } from "lib/app/lib/mongo";
 import { Transaction } from "lib/app/lib/types/transaction";
+import { getRolling90DayAverages } from "lib/app/lib/func/averages-per-cadence";
 
 type NumberObject = { [key: string]: number };
 
@@ -45,11 +46,13 @@ export async function GET(request: Request) {
 
   // console.log(query);
 
-  const yourTransactions = await transactions.find(query).toArray();
+  const yourTransactions: Transaction[] = (await transactions
+    .find(query)
+    .toArray()) as unknown as Transaction[];
 
   conn.close();
 
-  const filteredTransactions = yourTransactions.filter(
+  const filteredTransactions: Transaction[] = yourTransactions.filter(
     (transaction: Transaction) => transaction.amount > 0
   );
 
@@ -79,6 +82,11 @@ export async function GET(request: Request) {
       total,
       yourTransactions: filteredTransactions,
       averages: roundValuesTo2DP(averages),
+      averagesPerCadence: {
+        perDay: getRolling90DayAverages(filteredTransactions, "day"),
+        perWeek: getRolling90DayAverages(filteredTransactions, "week"),
+        perMonth: getRolling90DayAverages(filteredTransactions, "month"),
+      },
     })
   );
 }

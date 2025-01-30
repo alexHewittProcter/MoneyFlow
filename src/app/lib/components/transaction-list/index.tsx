@@ -25,7 +25,9 @@ export const TransactionList = ({
             <li key={transaction._id}>
               <p className="fs-6 m-2">{transaction.name}</p>
               <div>
-                <p className="fs-6 m-2">{transaction.date}</p>
+                {transaction.date && (
+                  <p className="fs-6 m-2">{transaction.date}</p>
+                )}{" "}
                 <p className="fs-6 m-2">{transaction.amount}</p>
               </div>
             </li>

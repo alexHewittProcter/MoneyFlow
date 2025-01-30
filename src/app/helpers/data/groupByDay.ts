@@ -3,6 +3,7 @@ import { SpendType } from "./groupBySpend";
 
 export interface GroupedByDay {
   day: string;
+  date: string;
   totalAmount: number;
   transactions: Transaction[];
   spendTypes?: SpendType[];
@@ -21,6 +22,7 @@ export function groupObjectsByDay(objects: Transaction[]): GroupedByDay[] {
     if (!groupedData[dayString]) {
       groupedData[dayString] = {
         day: dayString,
+        date: dayString,
         totalAmount: 0,
         transactions: [],
       };

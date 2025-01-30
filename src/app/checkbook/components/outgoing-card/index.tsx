@@ -3,16 +3,17 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { Button, ButtonGroup } from "react-bootstrap";
-import { Breakdown, BreakdownIntervalContext } from "../../type";
+import { BreakdownIntervalContext } from "../../type";
 import { convertValue } from "../../func";
+import { Breakdown } from "lib/app/lib/types/breakdown";
+import { addBreakdown, updateBreakdown } from "../../actions";
 
 interface OutgoingCardProps {
   breakdown?: Breakdown;
-  onChange?: (breakdown: Breakdown) => void;
 }
 
 const OutgoingCard = (props: OutgoingCardProps) => {
-  const { breakdown, onChange = (_) => {} } = props;
+  const { breakdown } = props;
   const breakdownInterval = useContext(BreakdownIntervalContext);
   const [title, setTitle] = useState("");
   const [numberValue, setNumberValue] = useState(0);
@@ -32,11 +33,19 @@ const OutgoingCard = (props: OutgoingCardProps) => {
   }, [breakdown, breakdownInterval]);
 
   const onSave = () => {
-    onChange({
-      ...breakdown,
-      ...convertValue(numberValue, breakdownInterval),
-      title,
-    });
+    if (breakdown) {
+      updateBreakdown({
+        ...breakdown,
+        ...convertValue(numberValue, breakdownInterval),
+        title,
+      });
+    } else {
+      addBreakdown({
+        ...convertValue(numberValue, breakdownInterval),
+        title,
+      });
+    }
+
     if (!breakdown) {
       setTitle("");
       setNumberValue(0);

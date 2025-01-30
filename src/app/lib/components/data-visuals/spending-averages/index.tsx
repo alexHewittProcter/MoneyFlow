@@ -16,7 +16,11 @@ import {
   Legend,
   Line,
 } from "recharts";
-import { groupTransactionsByDate } from "lib/app/helpers/data/groupTransactionByDate";
+import {
+  groupTransactionsByDate,
+  groupTransactionsByMonth,
+  groupTransactionsByWeek,
+} from "lib/app/helpers/data/groupTransactionByDate";
 import sortArrayByDateStringAscending from "lib/app/lib/func/sortDates";
 import { TransactionList } from "lib/app/lib/components/transaction-list";
 import { Accordion, Card } from "react-bootstrap";
@@ -41,7 +45,6 @@ export const SpendingAverages = () => {
     );
   }
 
-  // console.log(data && groupTransactionsByDate(data.yourTransactions));
   return (
     <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey="0">
@@ -71,47 +74,227 @@ export const SpendingAverages = () => {
           </div>
           <div
             style={{
-              width: "100%",
-              height: 300,
-              marginTop: "32px",
-              marginBottom: "50px",
+              display: "flex",
+              // flexDirection: "column",
+              flexWrap: "wrap",
+              // alignItems: "center",
             }}
           >
-            <p className="fs-5">Spending per day</p>
-            <ResponsiveContainer>
-              <LineChart
-                data={
-                  data &&
-                  sortArrayByDateStringAscending(
-                    groupTransactionsByDate(data.yourTransactions)
-                  ).reverse()
-                }
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="amount"
-                  stroke="#8884d8"
-                  strokeDasharray="5 5"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="uv"
-                  stroke="#82ca9d"
-                  strokeDasharray="3 4 5 2"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div
+              style={{
+                width: "50%",
+                height: 300,
+                marginTop: "32px",
+                marginBottom: "50px",
+              }}
+            >
+              <p className="fs-5">Spending per day</p>
+              <ResponsiveContainer>
+                <LineChart
+                  data={
+                    data &&
+                    sortArrayByDateStringAscending(
+                      groupTransactionsByDate(data.yourTransactions)
+                    ).reverse()
+                  }
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="amount"
+                    stroke="#8884d8"
+                    strokeDasharray="1 1"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>{" "}
+            <div
+              style={{
+                width: "50%",
+                height: 300,
+                marginTop: "32px",
+                marginBottom: "50px",
+              }}
+            >
+              <p className="fs-5">Average Spending per day</p>
+              <ResponsiveContainer>
+                <LineChart
+                  data={
+                    data &&
+                    // sortArrayByDateStringAscending(
+                    data.averagesPerCadence.perDay
+                    // ).reverse()
+                  }
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="period" />
+                  <YAxis dataKey="average" />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="average"
+                    stroke="#8884d8"
+                    strokeDasharray="1 1"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div
+              style={{
+                width: "50%",
+                height: 300,
+                marginTop: "32px",
+                marginBottom: "50px",
+              }}
+            >
+              <p className="fs-5">Spending per week</p>
+              <ResponsiveContainer>
+                <LineChart
+                  data={sortArrayByDateStringAscending(
+                    groupTransactionsByWeek(data.yourTransactions)
+                  ).reverse()}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="amount"
+                    stroke="#8884d8"
+                    strokeDasharray="1 1"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div
+              style={{
+                width: "50%",
+                height: 300,
+                marginTop: "32px",
+                marginBottom: "50px",
+              }}
+            >
+              <p className="fs-5">Spending per week</p>
+              <ResponsiveContainer>
+                <LineChart
+                  data={data && data.averagesPerCadence.perWeek}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="period" />
+                  <YAxis dataKey="average" />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="average"
+                    stroke="#8884d8"
+                    strokeDasharray="1 1"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div
+              style={{
+                width: "50%",
+                height: 300,
+                marginTop: "32px",
+                marginBottom: "50px",
+              }}
+            >
+              <p className="fs-5">Spending per month</p>
+              <ResponsiveContainer>
+                <LineChart
+                  data={
+                    data &&
+                    sortArrayByDateStringAscending(
+                      groupTransactionsByMonth(data.yourTransactions)
+                    ).reverse()
+                  }
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="amount"
+                    stroke="#8884d8"
+                    strokeDasharray="1 1"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div
+              style={{
+                width: "50%",
+                height: 300,
+                marginTop: "32px",
+                marginBottom: "50px",
+              }}
+            >
+              <p className="fs-5">Average Spending per month</p>
+              <ResponsiveContainer>
+                <LineChart
+                  data={data && data.averagesPerCadence.perMonth}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="period" />
+                  <YAxis dataKey="average" />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="average"
+                    stroke="#8884d8"
+                    strokeDasharray="1 1"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </Accordion.Body>
       </Accordion.Item>

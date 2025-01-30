@@ -3,6 +3,7 @@ import { SpendType } from "./groupBySpend";
 
 export interface GroupedByMonth {
   month: string;
+  date: string;
   totalAmount: number;
   transactions: Transaction[];
   spendTypes?: SpendType[];
@@ -19,6 +20,7 @@ export function groupObjectsByMonth(objects: Transaction[]): GroupedByMonth[] {
     if (!groupedData[monthString]) {
       groupedData[monthString] = {
         month: monthString,
+        date: monthString,
         totalAmount: 0,
         transactions: [],
       };

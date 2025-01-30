@@ -1,5 +1,6 @@
 import { useContext, useMemo } from "react";
-import { Breakdown, BreakdownIntervalContext } from "../../type";
+import { BreakdownIntervalContext } from "../../type";
+import { Breakdown } from "lib/app/lib/types/breakdown";
 
 interface BalanceCardProps {
   outgoings: Breakdown[];
@@ -7,7 +8,7 @@ interface BalanceCardProps {
 }
 
 export const BalanceCard = (props: BalanceCardProps) => {
-  const { outgoings, salary } = props;
+  const { outgoings = [], salary } = props;
 
   const breakdownInterval = useContext(BreakdownIntervalContext);
 
@@ -28,10 +29,12 @@ export const BalanceCard = (props: BalanceCardProps) => {
   );
 
   return (
-    <div className="card">
-      <p className="h3">Income: {salaryForInterval}</p>
-      <p className="h3">Outgoings: {outgoingsForInterval}</p>
-      <p className="h3">Balance: {balance}</p>
+    <div className="card w-25">
+      <p className="h3 text-success">Income: {salaryForInterval}</p>
+      <p className="h3 text-danger">Outgoings: {outgoingsForInterval}</p>
+      <p className={`h3 text-${balance > 0 ? "success" : "danger"}`}>
+        Balance: {balance}
+      </p>
     </div>
   );
 };
